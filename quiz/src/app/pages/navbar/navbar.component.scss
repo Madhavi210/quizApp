@@ -1,0 +1,67 @@
+/* src/app/navbar/navbar.component.scss */
+
+// .navbar {
+//     .navbar-brand {
+//       font-weight: bold;
+//     }
+  
+//     .nav-item {
+//       margin-left: 10px;
+  
+//       .nav-link {
+//         &:hover {
+//           text-decoration: underline;
+//         }
+//       }
+//     }
+//   }
+  
+  /* navbar.component.scss */
+
+.navbar {
+    background-color: #343a40; /* Dark background color */
+    padding-top: 10px;
+    padding-bottom: 10px;
+  
+    .navbar-brand {
+      font-family: 'Arial', sans-serif; /* Custom font */
+      font-size: 1.5rem; /* Larger font size */
+      font-weight: bold; /* Bold font weight */
+    }
+  
+    .navbar-nav {
+      margin-left: auto; /* Pushes menu items to the right */
+    }
+  
+    .nav-item {
+      margin-left: 15px; /* Spacing between menu items */
+  
+      .nav-link {
+        color: #ffffff; /* White text color */
+        font-weight: 500; /* Medium font weight */
+        transition: color 0.2s ease-in-out; /* Smooth color transition */
+  
+        &:hover {
+          color: #292a2b; /* Lighter text color on hover */
+        }
+      }
+    }
+  
+    .navbar-toggler {
+      border: none; /* Removes default border */
+      color: #ffffff; /* White color */
+    }
+  
+    .navbar-toggler-icon {
+      background-image: url('data:image/svg+xml;charset=UTF-8,<svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><path stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"></path></svg>');
+      /* Custom hamburger icon */
+    }
+  }
+  
+  .swal2-styled {
+    background-color: #000 !important;
+    color: #fff !important;
+    border-radius: 5px !important;
+    padding: 10px 20px !important;
+    font-size: 14px !important;
+  }

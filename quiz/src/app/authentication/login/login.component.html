@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="form-container">
+      <h2>Login Form</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+        <!-- Username or Email Field -->
+        <div class="form-group">
+          <label for="userNameOrEmail">Username or Email</label>
+          <input type="text" id="userNameOrEmail" formControlName="userNameOrEmail" placeholder="Enter your username or email">
+          <div *ngIf="loginForm.get('userNameOrEmail')?.errors && (loginForm.get('userNameOrEmail')?.touched || loginForm.get('userNameOrEmail')?.dirty)" class="text-danger mt-1">
+            <div *ngIf="loginForm.get('userNameOrEmail')?.hasError('required')">Username or Email is required.</div>
+          </div>
+        </div>
+  
+        <!-- Password Field -->
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" formControlName="password" placeholder="Enter your password">
+          <div *ngIf="loginForm.get('password')?.errors && (loginForm.get('password')?.touched || loginForm.get('password')?.dirty)" class="text-danger mt-1">
+            <div *ngIf="loginForm.get('password')?.hasError('required')">Password is required.</div>
+            <div *ngIf="loginForm.get('password')?.hasError('minlength')">Password must be at least 6 characters long.</div>
+          </div>
+        </div>
+  
+        <button type="submit" [disabled]="!loginForm.valid" class="btn btn-primary">Login</button>
+      </form>
+  
+      <div class="mt-3 text-center">
+        <p>Don't have an account? <a routerLink="/register">Register</a></p>
+      </div>
+    </div>
+  </div>
+  
