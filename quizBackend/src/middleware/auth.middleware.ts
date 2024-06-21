@@ -10,6 +10,9 @@ import bcrypt from 'bcrypt';
 import { TYPES } from '../config/types';
 import session from 'express-session';
 import { log } from 'console';
+import { BaseMiddleware } from 'inversify-express-utils';
+import { ParamsDictionary } from 'express-serve-static-core';
+import { ParsedQs } from 'qs';
 
 
 interface AuthenticatedRequest extends Request {
@@ -28,11 +31,14 @@ declare module 'express-session' {
 }
 
 @injectable()
-export class AuthMiddleware {
-    constructor(
-        @inject(TYPES.UserService) private userService: UserService
-    ) {}
+export class AuthMiddleware extends BaseMiddleware{
+    // constructor(
+    //     @inject(TYPES.UserService) private userService: UserService
+    // ) {}
 
+    handler(req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>, next: NextFunction): void {
+        
+    }
 
     loginMiddleware = async (req: Request, res: Response, next: NextFunction) => {
         try {
@@ -57,9 +63,15 @@ export class AuthMiddleware {
         }
     }
 
-    isLoggedIn = async (req: Request, res: Response, next: NextFunction) => {
+    public async isLoggedIn  (req: Request, res: Response, next: NextFunction) {
         try {
             const userId = req.session.user?.id;
+            // console.log(req.session.user);
+            console.log(userId, "id");
+            
+            
+            // console.log(userId," userid");
+            
             if (!userId) {
                 return res.status(401).json({ message: 'User not logged in' });
             }
@@ -104,12 +116,13 @@ export class AuthMiddleware {
     }
 
     public isAdmin(req: Request, res: Response, next: NextFunction) {
-        const user = (req as AuthenticatedRequest).user;
+        const user = req.session.user;
         if (!user || user.role !== 'admin') {
             return res.status(403).json({ message: 'Unauthorized access' });
         }
         next();
     }
+
     
 }
 

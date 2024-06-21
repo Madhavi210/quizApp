@@ -16,6 +16,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { ActionRendererComponent } from './pages/action-renderer/action-renderer.component';
+import { QuizComponent } from './pages/quiz/quiz.component';
+import { LoginService } from './shared/services/login.service';
+import { QuizService } from './shared/services/quiz.service';
+import { QuizExamComponent } from './pages/quiz-exam/quiz-exam.component';
+import { QuizResultComponent } from './pages/quiz-result/quiz-result.component';
+import { QuizListComponent } from './pages/quiz-list/quiz-list.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +32,11 @@ import { ActionRendererComponent } from './pages/action-renderer/action-renderer
     RegisterComponent,
     NotFoundComponent,
     ProfileComponent,
-    ActionRendererComponent
+    ActionRendererComponent,
+    QuizComponent,
+    QuizExamComponent,
+    QuizResultComponent,
+    QuizListComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +48,7 @@ import { ActionRendererComponent } from './pages/action-renderer/action-renderer
     AgGridModule
   ],
   providers: [
-  UserService,  { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+  UserService, LoginService, QuizService, { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit{
       email: ['', [Validators.required, Validators.email, ]], // Valid email and from allowed domains
       password: ['', [Validators.required, Validators.minLength(3), ]], // Minimum length of 6, complex password
       role: ['user'],
-      profilePic: [''],
+      profilePic: ['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSy_JmafxKbli9Es5QUvL6d-qIdOd5RmExsvA&s', ],
     });
   }
 

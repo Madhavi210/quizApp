@@ -1,0 +1,17 @@
+<div class="container mt-4">
+    <p class="lead">Create Quiz</p>
+    <form [formGroup]="quizForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="title" class="form-label">Title:</label>
+        <input type="text" id="title" formControlName="title" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description:</label>
+        <textarea id="description" formControlName="description" class="form-control" required></textarea>
+      </div>
+      <!-- Add more fields for questions if needed -->
+  
+      <button type="submit" class="btn btn-primary" [disabled]="!quizForm.valid">Create Quiz</button>
+    </form>
+  </div>
+  

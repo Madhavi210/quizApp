@@ -91,6 +91,8 @@ export class UserService implements IUserService {
                 email: user.email,
                 role: user.role
             };
+            console.log(req.session.user);
+            
             return token;        
     }
 

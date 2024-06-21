@@ -1,3 +1,4 @@
+import { ThisReceiver } from '@angular/compiler';
 import { Component, Input } from '@angular/core';
 
 @Component({
@@ -20,6 +21,7 @@ export class ActionRendererComponent {
   onDelete(): void {
     this.params.onDelete(this.params.data._id); 
   }
+
 }
 
 

@@ -4,6 +4,9 @@ import { inject } from 'inversify';
 import { IQuizService } from '../services/quiz.service';
 import { IQuiz } from '../interfaces/IQuiz';
 import { TYPES } from '../config/types';
+import { AuthMiddleware } from '../middleware/auth.middleware';
+import { title } from 'process';
+const authMiddleware = new AuthMiddleware();
 
 @controller('/quiz')
 export class QuizController {
@@ -11,7 +14,7 @@ export class QuizController {
         @inject(TYPES.QuizService) private readonly quizService: IQuizService 
     ){}
 
-    @httpGet('/')
+    @httpGet('/', )
     async getAllQuizzes(req: Request,  res: Response): Promise<void> {
         try {
             const quizzes = await this.quizService.findAllQuizzes();
@@ -39,15 +42,16 @@ export class QuizController {
     @httpPost('/')
     async createQuiz(req: Request, res: Response): Promise<void> {
         try {
-            const quizData: IQuiz = req.body;
-            const newQuiz = await this.quizService.createQuiz(quizData);
+            // const quizData: IQuiz = req.body;
+            const title: string = req.body.title; // Assuming title is passed in request body
+            const newQuiz = await this.quizService.createQuiz(title);
             res.status(201).json(newQuiz); // Send the created quiz in the response
         } catch (error:any) {
             res.status(500).json({ error: error.message }); // Send the error message in the response
         }
     }
 
-    @httpDelete('/:id')
+    @httpDelete('/:id', authMiddleware.isLoggedIn)
     async deleteQuiz(req: Request, res: Response): Promise<void> {
         try {
             const id = req.params.id;

@@ -4,14 +4,16 @@ import { inject } from 'inversify';
 import { IQuestionService } from '../services/question.service';
 import { IQuestion } from '../interfaces/IQuestion';
 import { TYPES } from '../config/types';
-
-@controller('/questions')
+import { AuthMiddleware } from '../middleware/auth.middleware';
+const authMiddleware = new AuthMiddleware();
+@controller('/questions' )
 export class QuestionController {
     constructor(
-        @inject(TYPES.QuestionService) private readonly questionService: IQuestionService 
+        @inject(TYPES.QuestionService) private readonly questionService: IQuestionService,
+        // @inject(TYPES.AuthMiddleware) private readonly authMiddleware: AuthMiddleware
     ){}
 
-    @httpGet('/')
+    @httpGet('/', authMiddleware.isLoggedIn, authMiddleware.isAdmin)
     async getAllQuestions(req: Request,  res: Response): Promise<void> {
         try {
             const questions = await this.questionService.findAllQuestions();
@@ -36,7 +38,9 @@ export class QuestionController {
         }
     }
 
-    @httpPost('/')
+    
+
+    @httpPost('/', authMiddleware.isLoggedIn , authMiddleware.isAdmin)
     async createQuestion(req: Request, res: Response): Promise<void> {
         try {
             const questionData: IQuestion = req.body;
@@ -47,7 +51,7 @@ export class QuestionController {
         }
     }
 
-    @httpDelete('/:id')
+    @httpDelete('/:id', authMiddleware.isLoggedIn , authMiddleware.isAdmin )
     async deleteQuestion(req: Request, res: Response): Promise<void> {
         try {
             const id = req.params.id;
@@ -62,3 +66,4 @@ export class QuestionController {
         }
     }
 }
+

@@ -4,7 +4,7 @@ import { ResultModel } from '../models/result.model';
 
 export interface IResultService {
     createResult(resultData: IResult): Promise<IResult>;
-    findResultById(id: string): Promise<IResult | null>;
+    findResultById(quizId: string, userId: string): Promise<IResult | null>;
     findAllResults(): Promise<IResult[]>;
     updateResult(id: string, resultData: IResult): Promise<IResult | null>;
     deleteResult(id: string): Promise<boolean>;
@@ -16,8 +16,8 @@ export class ResultService implements IResultService {
         return await ResultModel.create(resultData);
     }
 
-    async findResultById(id: string): Promise<IResult | null> {
-        return await ResultModel.findById(id).exec();
+    async findResultById(quizId: string, userId: string): Promise<IResult | null> {
+        return await ResultModel.findOne({ quiz: quizId, user: userId }).exec();
     }
 
     async findAllResults(): Promise<IResult[]> {

@@ -1,0 +1,26 @@
+<div class="result-container">
+    <h2>Quiz Result</h2>
+    <div class="result-details" >
+      <div class="result-item">
+        <span class="label">Quiz ID:</span>
+        <span class="value">{{ result?.quiz }}</span>
+      </div>
+      <div class="result-item">
+        <span class="label">Score:</span>
+        <span class="value">{{ result?.score }}</span>
+      </div>
+      <div class="result-item">
+        <span class="label">Total Questions:</span>
+        <span class="value">{{ result?.totalQuestions }}</span>
+      </div>
+      <div class="result-item">
+        <span class="label">Grade:</span>
+        <span class="value">{{ result?.grade }}</span>
+      </div>
+      <div class="result-item">
+        <span class="label">Attempted At:</span>
+        <span class="value">{{ result?.attemptedAt | date }}</span>
+      </div>
+    </div>
+  </div>
+  

@@ -5,8 +5,12 @@ import { inject } from 'inversify';
 import { IResultService } from '../services/result.service';
 import { IResult } from '../interfaces/IResult';
 import { TYPES } from '../config/types';
+import { ResultModel } from '../models/result.model';
+import { AuthMiddleware } from '../middleware/auth.middleware';
+import { log } from 'console';
+const authMiddleware = new AuthMiddleware();
 
-@controller('/results')
+@controller('/result')
 export class ResultController {
     constructor(
         @inject(TYPES.ResultService) private readonly resultService: IResultService 
@@ -22,11 +26,11 @@ export class ResultController {
         }
     }
 
-    @httpGet('/:id')
+    @httpGet('/:quizId')
     async getResultById(req: Request, res: Response): Promise<void> {
         try {
-            const id = req.params.id;
-            const result = await this.resultService.findResultById(id);
+            const { quizId, userId } = req.params;
+            const result = await this.resultService.findResultById(quizId, userId);
             if (!result) {
                 res.status(404).json({ error: 'Result not found' });
             } else {
@@ -37,12 +41,31 @@ export class ResultController {
         }
     }
 
-    @httpPost('/')
+    @httpPost('/:quizId' )
     async createResult(req: Request, res: Response): Promise<void> {
         try {
-            const resultData: IResult = req.body;
-            const newResult = await this.resultService.createResult(resultData);
-            res.status(201).json(newResult); // Send the created result in the response
+            // const resultData: IResult = req.body;
+            // const token = req.headers.authorization.split(' ')[1]; 
+
+            const quizId = req.params.quizId;
+            const {score, totalQuestions, grade , userId} = req.body;
+            // console.log(score, quizId, userId);
+            
+            // const userId = req.userData;
+            const result = new ResultModel({
+                quiz: quizId,
+                user: userId,
+                score,
+                totalQuestions,
+                grade,
+                attemptedAt: new Date()
+              });
+            //   console.log(result);
+              
+              const createResult = await result.save();
+
+            // const newResult = await this.resultService.createResult(resultData);
+            res.status(201).json(createResult); // Send the created result in the response
         } catch (error:any) {
             res.status(500).json({ error: error.message }); // Send the error message in the response
         }

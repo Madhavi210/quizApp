@@ -145,7 +145,7 @@ export class UserController  {
     async deleteAll(req:Request, res:Response): Promise<void> {
         try {
             const deletedUser = await this.userService.deleteAll()
-            res.status(200).json({message: `user deleted cuccessfully: ${deletedUser}`})
+            res.status(200).json({message: `user deleted successfully: ${deletedUser}`})
         } catch (error:any) {
             res.status(500).json({error: error.message})
         }

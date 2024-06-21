@@ -68,7 +68,7 @@ export class ProfileComponent implements OnInit {
       cellRenderer: 'actionCellRenderer',
       cellRendererParams: {
         onEdit: (userId: string) => this.editUser(userId),
-        onDelete: (id: number) => this.deleteUser(id)
+        onDelete: (id: number) => this.deleteUser(id),
       }
     }
     
@@ -86,6 +86,8 @@ export class ProfileComponent implements OnInit {
 
   paginationPageSize=  10;
   domLayout = 'autoHeight';
+
+ 
 
   editUser(id:string): void{
     console.log("edit button clicked", id);
