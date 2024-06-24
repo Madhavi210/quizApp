@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './pages/home/home.component';
-import { NavbarComponent } from './pages/navbar/navbar.component';
+import { NavbarComponent } from './layout/navbar/navbar.component';
 import { LoginComponent } from './authentication/login/login.component';
 import { RegisterComponent } from './authentication/register/register.component';
 import { ErrorInterceptor } from './shared/error.interceptor';
